@@ -14,19 +14,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: ReposAdapter
-    lateinit var viewModel:GitHubViewModel
+    lateinit var viewModel : GitHubViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        bind()
+
     }
 
     fun bind(){
-        adapter= ReposAdapter(ArrayList())
-        viewModel=ViewModelProviders.of(this).get(GitHubViewModel::class.java)
-        recyclerid.apply {
-            adapter=this@MainActivity.adapter
-            layoutManager= LinearLayoutManager(this@MainActivity)
+        adapter = ReposAdapter(ArrayList())
+        viewModel = ViewModelProviders.of(this).get(GitHubViewModel::class.java)
+        recycler.apply {
+            adapter = this@MainActivity.adapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
         }
         viewModel.getAll().observe(this, Observer {
             adapter.updateList(it)

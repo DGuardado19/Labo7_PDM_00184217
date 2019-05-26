@@ -11,21 +11,19 @@ import com.example.myapplication.database.repositories.GitHubRepoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GitHubViewModel(app:Application):AndroidViewModel(app){
+class GitHubViewModel(app : Application) : AndroidViewModel(app){
 
-    private val repository:GitHubRepoRepository
+    private val repository : GitHubRepoRepository
 
     init {
         val repoDao = RoomDB.getInstance(app).repoDAO()
-        repository=GitHubRepoRepository(repoDao)
+        repository = GitHubRepoRepository(repoDao)
     }
 
-    fun getAll():LiveData<List<GitHubRepo>> = repository.getAll()
+    fun getAll() : LiveData<List<GitHubRepo>> = repository.getAll()
 
-    fun insert(repo: GitHubRepo) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(repo : GitHubRepo) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(repo)
     }
-
-
 
 }
